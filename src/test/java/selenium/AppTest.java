@@ -22,7 +22,7 @@ public class AppTest {
     @Before
     public void setUp() {
         System.out.println("Iniciando configuración...");
-        System.setProperty("webdriver.chrome.driver", "/home/gonzalo/ejemploSeleniumWeb/drivers/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
