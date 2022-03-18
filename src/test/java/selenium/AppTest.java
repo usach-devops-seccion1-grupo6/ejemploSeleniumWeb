@@ -2,11 +2,14 @@ package selenium;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Test;
@@ -26,7 +29,13 @@ public class AppTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
-        driver = new ChromeDriver(options);
+        URL url;
+        try {
+                url = new URL("http://segrid:4444");
+                driver = new RemoteWebDriver(url, options);
+        } catch (MalformedURLException e) {
+                e.printStackTrace();
+        }
     }
 
     @Test
@@ -46,7 +55,9 @@ public class AppTest {
 
         assertEquals(
                 "The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations",
-                productTitle.getText());
+                        productTitle.getText());
+        driver.close();
+        driver.quit();
     }
 
     @Test
@@ -62,6 +73,7 @@ public class AppTest {
         assertEquals(
                 "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win 5th Anniversary Edition",
                 element.getText());
-
+        driver.close();
+        driver.quit();
     }
 }
